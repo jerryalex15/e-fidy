@@ -1,0 +1,30 @@
+services:
+  databazy:
+    image: postgres:latest  # Use the official PostgreSQL image
+    container_name: postgres_container
+    ports:
+      - 5432:5432  # Map container port 5433 to host port 5434
+    environment:
+      POSTGRES_DB: E-FIDY_DB
+      POSTGRES_USER: usr_postgres
+      POSTGRES_PASSWORD: pwd_postgres
+    volumes:
+      - F:\Projet_Post_M1_Reunion\db_backup_dockerized:/var/lib/postgresql/data  # Optional: Persist PostgreSQL data
+    restart: always
+
+  backend:
+    build: .  # Build the Spring Boot image from the current directory
+    container_name: springboot_api
+    ports:
+      - 8080:8080  # Map container port 8080 to host port 8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://databazy:5432/E-FIDY_DB
+      SPRING_DATASOURCE_USERNAME: usr_postgres
+      SPRING_DATASOURCE_PASSWORD: pwd_postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+    depends_on:
+      - databazy
+    restart: always 

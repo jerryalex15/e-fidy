@@ -9,6 +9,7 @@ import { NgbCarouselModule, NgbCollapseModule, NgbModule } from '@ng-bootstrap/n
 import { NavbarComponent } from './navbar/navbar.component';
 import { CarouselComponent } from './carousel/carousel.component';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     ProduitComponent,
     NavbarComponent,
     CarouselComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
